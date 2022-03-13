@@ -1,4 +1,4 @@
-#Module for creating language corpuses
+# Module for creating language corpuses
 
 import numpy as np
 import pandas as pd
@@ -13,20 +13,31 @@ from string import punctuation
 
 N_GRAM = 3
 
+
 def remove_punctuation(text):
-    if(type(text)==float):
+    if(type(text) == float):
         return text
-    ans=""  
-    for i in text:     
+    ans = ""
+    for i in text:
         if i not in string.punctuation:
-            ans+=i 
+            ans += i
     return ans
 
+
 def generate_N_grams(text, language, ngram=1):
-    words=[word for word in text.split(" ") if word not in set(stopwords.words(language))]  
-    temp=zip(*[words[i:] for i in range(0,ngram)])
-    ans=[' '.join(ngram) for ngram in temp]
+    words = [word for word in text.split(
+        " ") if word not in set(stopwords.words(language))]
+    temp = zip(*[words[i:] for i in range(0, ngram)])
+    ans = [' '.join(ngram) for ngram in temp]
     return ans
+
+
+def n_gram(text, ngram=1):
+    words = remove_punctuation(text).split(" ")
+    temp = zip(*[words[i:] for i in range(0, ngram)])
+    ans = [' '.join(ngram) for ngram in temp]
+    return ans
+
 
 def genereate_corpuses(filename, n_gram) -> defaultdict(list):
     """
@@ -47,14 +58,16 @@ def genereate_corpuses(filename, n_gram) -> defaultdict(list):
     df = pd.read_csv(filename)
     df.Language = df.Language.apply(lambda x: x.lower())
 
-    #extracting the languages, for which stopwords are available
-    deleting_indexes = df[df.Language.map(lambda x: x not in stopwords.fileids())].index
+    # extracting the languages, for which stopwords are available
+    deleting_indexes = df[df.Language.map(
+        lambda x: x not in stopwords.fileids())].index
     df.drop(deleting_indexes, inplace=True)
-    
-    #removing punktuation
-    df['text']= df['Text'].apply(lambda x:remove_punctuation(x))
+
+    # removing punktuation
+    df['text'] = df['Text'].apply(lambda x: remove_punctuation(x))
 
     corpuses = defaultdict(list)
     for index, row in df.iterrows():
-        corpuses[row.Language] += generate_N_grams(row.Text, row.Language, N_GRAM)
+        corpuses[row.Language] += generate_N_grams(
+            row.Text, row.Language, N_GRAM)
     return corpuses
