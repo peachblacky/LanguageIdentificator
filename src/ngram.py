@@ -1,11 +1,7 @@
 # Module for creating language corpuses
 
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import nltk
-from sklearn.model_selection import train_test_split
-import string
 from collections import defaultdict
 from string import punctuation
 
@@ -15,7 +11,7 @@ def remove_punctuation(text):
         return text
     ans = ""
     for i in text:
-        if i not in string.punctuation:
+        if i not in punctuation:
             ans += i
     return ans
 

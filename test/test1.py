@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(1, 'C:/Users/Sibdroid/Desktop/6sem/TBIP/LanguageIdentificator')
+sys.path.insert(1, 'somepath/LanguageIdentificator')
 from src import classify, ngram
 import codecs
 

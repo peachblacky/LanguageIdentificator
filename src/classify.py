@@ -1,10 +1,8 @@
-from pickletools import float8
 import sys
-sys.path.insert(1, 'C:/Users/Sibdroid/Desktop/6sem/TBIP/LanguageIdentificator')
+sys.path.insert(1, 'somepath/LanguageIdentificator')
 from src.ngram import n_gram
 import numpy as np
 from collections import defaultdict
-from sklearn.naive_bayes import BernoulliNB
 
 
 def CFA(corpuses, input, n_gram_length) -> str:
