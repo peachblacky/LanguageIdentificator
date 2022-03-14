@@ -57,7 +57,7 @@ def MNB(corpuses, input, n_gram_length) -> str:
         for ngram in np.intersect1d(v,input_ngram):
             prob += input_ngram.count(ngram) / norm_val
         lang_probs[k] = prob
-        print(k + " probability is " + str(prob))
+        # print(k + " probability is " + str(prob))
     return max(lang_probs, key=lang_probs.get)
 
         
